@@ -1,0 +1,31 @@
+> mkdir skinet && cd skinet
+> dotnet new globaljson --sdk-version 3.1.201
+> dotnet new sln
+> dotnet new webapi -o API
+> dotnet sln add .\API\API.csproj
+❯ dotnet dev-certs https
+
+// API proje klasörü içinde çalıştır
+> dotnet add package Microsoft.EntityFrameworkCore
+> dotnet add package Microsoft.EntityFrameworkCore.Sqlite
+> dotnet add package Microsoft.EntityFrameworkCore.Design
+❯ dotnet ef migrations add InitialCreate -o Data/Migrations
+> dotnet ef database update
+
+
+// create new projects
+> dotnet new classlib -o Core
+❯ dotnet new classlib -o Infrastructure
+
+// add to solution
+> dotnet sln add .\Core\Core.csproj
+❯ dotnet sln add .\Infrastructure\Infrastructure.csproj
+
+// in the API project 
+> dotnet add reference ..\Infrastructure\Infrastructure.csproj
+
+// in the Infrastructure project 
+> dotnet add reference ..\Core\Core.csproj
+
+// in the solution folder
+> dotnet restore
